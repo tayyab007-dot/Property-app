@@ -445,7 +445,9 @@
                 <h1 class="text-xl font-bold text-primary flex items-center">
                     <i class="fas fa-building mr-2"></i> RealEstate Pro
                 </h1>
-                <p class="text-xs text-gray-500 mt-1">Super Admin Panel</p>
+                <p class="text-base font-medium mt-1">
+                    {{ auth()->user()->name ?? 'N/A' }} Panel
+                </p>
             </div>
 
             <nav class="mt-6 space-y-2 px-4">
@@ -488,17 +490,13 @@
             <div class="absolute bottom-0 w-full p-4 border-t">
                 <div class="flex items-center">
                     <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white">
-                        <span>SA</span>
+                        <span>A</span>
                     </div>
                     <div class="ml-3">
-                        <p class="text-sm font-medium">Super Admin</p>
-                        <p class="text-xs text-gray-500">admin@realestatepro.com</p>
+                        <p class="text-sm font-medium">{{ auth()->user()->name }}</p>
+                        <p class="text-xs text-gray-500">{{ auth()->user()->email }}</p>
                     </div>
                 </div>
-                {{-- <a href="{{ route('logout') }}"
-                    class="mt-3 block text-center text-sm text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                </a> --}}
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}" class="inline">
