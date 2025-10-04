@@ -4,6 +4,10 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReportController;
+
+use App\Livewire\Dashboard\Reports\AgentReports;
+use App\Livewire\Dashboard\Reports\SingleAgentReport;
 use App\Livewire\Dashboard\Properties;
 // use resources\views\test-assets;
 use App\Livewire\Counter;
@@ -14,10 +18,7 @@ use App\Livewire\Properties\Show;
 use Livewire\Livewire;
 
 
-// use App\Livewire\Dashboard\Properties;
-
-// Route::get('/dashboard/properties', Properties::class)->name('dashboard.properties');
-// Route::get('/dashboard/properties/create', Properties::class)->name('dashboard.properties.create');
+Route::middleware(['auth'])->group(function(){
 
 
 Route::get('/dashboard', App\Livewire\Dashboard\Dashboard::class)->name('dashboard');
@@ -26,19 +27,27 @@ Route::get('/dashboard/properties/create', \App\Livewire\Dashboard\Properties\Cr
 Route::get('/dashboard/properties/{property}/edit', \App\Livewire\Dashboard\Properties\Edit::class)->name('dashboard.properties.edit');
 Route::get('dashboard/properties/show/{id}', \App\Livewire\Dashboard\Properties\Show::class)->name('dashboard.properties.show');
 
-// Route::get('/dashboard/agents', \App\Livewire\Dashboard\Agents\Index::class)->name('dashboard.agents.index');
-// Route::get('/dashboard/agents/create', \App\Livewire\Dashboard\Agents\Create::class)->name('dashboard.agents.create');
-// Route for Livewire dashboard component
-// ...existing code...
-
-
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/agents', \App\Livewire\Dashboard\Agents\Index::class)->name('dashboard.agents.index');
     Route::get('/dashboard/agents/create', \App\Livewire\Dashboard\Agents\Create::class)->name('dashboard.agents.create');
     Route::get('/dashboard/agents/{agent}/edit', \App\Livewire\Dashboard\Agents\Edit::class)->name('dashboard.agents.edit');
     Route::get('/dashboard/agents/{agent}', \App\Livewire\Dashboard\Agents\Show::class)->name('dashboard.agents.show');
+// });
+
 });
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard/reports/agents', \App\Livewire\Dashboard\Reports\AgentReports::class)->name('dashboard.reports.agents');
+    Route::get('/dashboard/reports/agents/{agent}', \App\Livewire\Dashboard\Reports\SingleAgentReport::class)->name('dashboard.reports.single-agent');
+});
+
+
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/reports/agents', [ReportController::class, 'index'])->name('reports.agents.index');
+//     Route::get('/reports/agents/{agent}', [ReportController::class, 'show'])->name('reports.agents.show');
+// });
 
 
 
@@ -73,7 +82,6 @@ Route::get('/services', \App\Livewire\website\Services::class)->name('services')
 
 
 Route::get('/properties', \App\Livewire\website\Properties::class)->name('properties');
-
 Route::get('/property/{property}', \App\Livewire\Website\OneProperty::class)->name('properties.show');
 
 

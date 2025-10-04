@@ -32,6 +32,8 @@ class RolesAndPermissionsSeeder extends Seeder
 
             'view payments',
 
+            'manage reports',
+
             'manage users',
             'view dashboard',
         ];

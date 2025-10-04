@@ -4,7 +4,7 @@
 <div class="p-6">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
 
-        <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+        {{-- <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
             <div class="flex justify-between items-start">
                 <div>
                     <h3 class="text-sm font-medium text-gray-500">Total Users</h3>
@@ -33,7 +33,38 @@
                     <i class="fas fa-building text-green-600 text-xl"></i>
                 </div>
             </div>
+        </div> --}}
+
+        <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+    <div class="flex justify-between items-start">
+        <div>
+            <h3 class="text-sm font-medium text-gray-500">Total Users</h3>
+            <p class="text-2xl font-bold text-gray-800">{{ \App\Models\User::count() }}</p>
+            <p class="text-xs text-green-500 mt-1">
+                <i class="fas fa-arrow-up mr-1"></i> 12% from last month
+            </p>
         </div>
+        <div class="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center">
+            <i class="fas fa-users text-blue-600 text-xl"></i>
+        </div>
+    </div>
+</div>
+
+<div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-green-500">
+    <div class="flex justify-between items-start">
+        <div>
+            <h3 class="text-sm font-medium text-gray-500">Properties</h3>
+            <p class="text-2xl font-bold text-gray-800">{{ \App\Models\Property::count() }}</p>
+            <p class="text-xs text-green-500 mt-1">
+                <i class="fas fa-arrow-up mr-1"></i> 8% from last month
+            </p>
+        </div>
+        <div class="bg-green-100 rounded-full w-12 h-12 flex items-center justify-center">
+            <i class="fas fa-building text-green-600 text-xl"></i>
+        </div>
+    </div>
+</div>
+
 
         <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-purple-500">
             <div class="flex justify-between items-start">
@@ -123,7 +154,10 @@
         <div class="bg-white p-6 rounded-lg shadow-sm">
             <h2 class="text-lg font-semibold mb-6">Quick Actions</h2>
             <div class="grid grid-cols-2 gap-4">
-                <a href="#"
+               @can('manage agents')
+                   
+              
+                <a href="{ route('dashboard.agents.create') }"
                     class="flex flex-col items-center justify-center p-4 bg-blue-50 rounded-lg border border-blue-100 hover:bg-blue-100 transition">
                     <div class="bg-blue-100 p-3 rounded-full mb-2">
                         <i class="fas fa-user-plus text-blue-600 text-xl"
@@ -131,6 +165,8 @@
                     </div>
                     <span class="text-sm font-medium">Add User</span>
                 </a>
+
+                 @endcan
                 <a href="{{ route('dashboard.properties.create') }}"
                     class="flex flex-col items-center justify-center p-4 bg-green-50 rounded-lg border border-green-100 hover:bg-green-100 transition">
                     <div class="bg-green-100 p-3 rounded-full mb-2">
@@ -139,7 +175,11 @@
                     </div>
                     <span class="text-sm font-medium">Add Property</span>
                 </a>
-                <a href="#"
+
+                @can('manage reports')
+                    
+               
+               <a href="{{ route('dashboard.reports.agents') }}"
                     class="flex flex-col items-center justify-center p-4 bg-purple-50 rounded-lg border border-purple-100 hover:bg-purple-100 transition">
                     <div class="bg-purple-100 p-3 rounded-full mb-2">
                         <i class="fas fa-file-invoice text-purple-700 text-xl"
@@ -147,6 +187,8 @@
                     </div>
                     <span class="text-sm font-medium">Generate Report</span>
                 </a>
+
+                 @endcan
                 <a href="#"
                     class="flex flex-col items-center justify-center p-4 bg-yellow-50 rounded-lg border border-yellow-100 hover:bg-yellow-100 transition">
                     <div class="bg-yellow-100 p-3 rounded-full mb-2">

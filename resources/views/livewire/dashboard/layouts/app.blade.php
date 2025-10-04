@@ -474,10 +474,15 @@
                     </a>
 
                 @endcan
-                <a href="#" class="block py-3 px-6 text-gray-700 menu-item">
-                    <i class="fas fa-chart-line mr-3 w-5 text-center"></i> Analytics
+
+                @can('manage reports')
+                    
+              
+                <a href="{{route('dashboard.reports.agents')}}" class="block py-3 px-6 text-gray-700 menu-item">
+                    <i class="fas fa-chart-line mr-3 w-5 text-center"></i> Reports
                 </a>
 
+                  @endcan
 
 
                 @role('agent')
@@ -493,10 +498,13 @@
                         <span>A</span>
                     </div>
                     <div class="ml-3">
+                    @if(auth()->check())
                         <p class="text-sm font-medium">{{ auth()->user()->name }}</p>
                         <p class="text-xs text-gray-500">{{ auth()->user()->email }}</p>
+                    @endif
+                    
                     </div>
-                </div>
+                    </div>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}" class="inline">
