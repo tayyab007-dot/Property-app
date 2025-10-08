@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -122,36 +123,47 @@
             </div>
 
             <nav class="mt-6 px-3 space-y-2">
-                <a href="{{ route('dashboard') }}" class="flex items-center p-3 text-slate-700 menu-item rounded-lg hover:bg-slate-50">
-                    <i class="fas fa-home w-5 text-slate-500 mr-3"></i>
-                    <span class="text-sm">Dashboard</span>
-                </a>
+                <a href="{{ route('dashboard') }}"
+   class="flex items-center p-3 rounded-lg menu-item
+   {{ request()->routeIs('dashboard') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
+   <i class="fas fa-home w-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-white' : 'text-slate-500' }}"></i>
+   <span class="text-sm">Dashboard</span>
+</a>
 
-                <a href="{{ route('dashboard.properties.index') }}" class="flex items-center p-3 text-slate-700 menu-item rounded-lg active-menu">
-                    <i class="fas fa-building w-5 text-white mr-3"></i>
-                    <span class="text-sm">Properties</span>
-                </a>
+<a href="{{ route('dashboard.properties.index') }}"
+   class="flex items-center p-3 rounded-lg menu-item
+   {{ request()->routeIs('dashboard.properties.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
+   <i class="fas fa-building w-5 mr-3 {{ request()->routeIs('dashboard.properties.*') ? 'text-white' : 'text-slate-500' }}"></i>
+   <span class="text-sm">Properties</span>
+</a>
 
-                @can('view agents')
-                    <a href="{{ route('dashboard.agents.index') }}" class="flex items-center p-3 text-slate-700 menu-item rounded-lg hover:bg-slate-50">
-                        <i class="fas fa-users w-5 text-slate-500 mr-3"></i>
-                        <span class="text-sm">Agents</span>
-                    </a>
-                @endcan
+@can('view agents')
+<a href="{{ route('dashboard.agents.index') }}"
+   class="flex items-center p-3 rounded-lg menu-item
+   {{ request()->routeIs('dashboard.agents.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
+   <i class="fas fa-users w-5 mr-3 {{ request()->routeIs('dashboard.agents.*') ? 'text-white' : 'text-slate-500' }}"></i>
+   <span class="text-sm">Agents</span>
+</a>
+@endcan
 
-                @can('view payments')
-                    <a href="#" class="flex items-center p-3 text-slate-700 menu-item rounded-lg hover:bg-slate-50">
-                        <i class="fas fa-file-invoice-dollar w-5 text-slate-500 mr-3"></i>
-                        <span class="text-sm">Payments</span>
-                    </a>
-                @endcan
+@can('view payments')
+<a href="#"
+   class="flex items-center p-3 rounded-lg menu-item
+   {{ request()->is('dashboard/payments*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
+   <i class="fas fa-file-invoice-dollar w-5 mr-3 {{ request()->is('dashboard/payments*') ? 'text-white' : 'text-slate-500' }}"></i>
+   <span class="text-sm">Payments</span>
+</a>
+@endcan
 
-                @can('manage reports')
-                    <a href="{{route('dashboard.reports.agents')}}" class="flex items-center p-3 text-slate-700 menu-item rounded-lg hover:bg-slate-50">
-                        <i class="fas fa-chart-line w-5 text-slate-500 mr-3"></i>
-                        <span class="text-sm">Reports</span>
-                    </a>
-                @endcan
+@can('manage reports')
+<a href="{{ route('dashboard.reports.agents') }}"
+   class="flex items-center p-3 rounded-lg menu-item
+   {{ request()->routeIs('dashboard.reports.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
+   <i class="fas fa-chart-line w-5 mr-3 {{ request()->routeIs('dashboard.reports.*') ? 'text-white' : 'text-slate-500' }}"></i>
+   <span class="text-sm">Reports</span>
+</a>
+@endcan
+
 
                 @role('agent')
                     <a href="#" class="flex items-center p-3 text-slate-700 menu-item rounded-lg hover:bg-slate-50">
@@ -174,9 +186,9 @@
                     </div>
                 </div>
 
-                <form method="POST" action="{{ route('logout') }}" class="mt-4">
+                <form method="POST" action="{{ route('logout') }}" class="mt-2">
                     @csrf
-                    <button type="submit" class="w-full text-sm px-3 py-2 rounded-md bg-slate-50 hover:bg-slate-100 text-slate-700 flex items-center justify-center">
+                    <button type="submit" class="w-full text-sm px-3 py-2 mb-0 rounded-md bg-slate-50 hover:bg-slate-100 text-slate-700 flex items-center justify-center">
                         <i class="fas fa-sign-out-alt mr-2"></i> Log Out
                     </button>
                 </form>
