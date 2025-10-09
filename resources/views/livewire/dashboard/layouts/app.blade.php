@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,7 +71,7 @@
         }
 
         .active-menu {
-            background: linear-gradient(90deg, rgba(14,165,164,1) 0%, rgba(124,58,237,1) 100%);
+            background: linear-gradient(90deg, rgba(14, 165, 164, 1) 0%, rgba(124, 58, 237, 1) 100%);
             color: white !important;
         }
 
@@ -112,7 +111,8 @@
         <aside class="sidebar fixed h-screen shadow-sm z-20">
             <div class="p-6 border-b">
                 <div class="flex items-center">
-                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold mr-3">
+                    <div
+                        class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold mr-3">
                         RP
                     </div>
                     <div>
@@ -123,60 +123,61 @@
             </div>
 
             <nav class="mt-6 px-3 space-y-2">
-                <a href="{{ route('dashboard') }}"
-   class="flex items-center p-3 rounded-lg menu-item
+                <a href="{{ route('dashboard') }}" class="flex items-center p-3 rounded-lg menu-item
    {{ request()->routeIs('dashboard') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
-   <i class="fas fa-home w-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-white' : 'text-slate-500' }}"></i>
-   <span class="text-sm">Dashboard</span>
-</a>
+                    <i
+                        class="fas fa-home w-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-white' : 'text-slate-500' }}"></i>
+                    <span class="text-sm">Dashboard</span>
+                </a>
 
-<a href="{{ route('dashboard.properties.index') }}"
-   class="flex items-center p-3 rounded-lg menu-item
+                <a href="{{ route('dashboard.properties.index') }}" class="flex items-center p-3 rounded-lg menu-item
    {{ request()->routeIs('dashboard.properties.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
-   <i class="fas fa-building w-5 mr-3 {{ request()->routeIs('dashboard.properties.*') ? 'text-white' : 'text-slate-500' }}"></i>
-   <span class="text-sm">Properties</span>
-</a>
+                    <i
+                        class="fas fa-building w-5 mr-3 {{ request()->routeIs('dashboard.properties.*') ? 'text-white' : 'text-slate-500' }}"></i>
+                    <span class="text-sm">Properties</span>
+                </a>
 
-@can('view agents')
-<a href="{{ route('dashboard.agents.index') }}"
-   class="flex items-center p-3 rounded-lg menu-item
-   {{ request()->routeIs('dashboard.agents.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
-   <i class="fas fa-users w-5 mr-3 {{ request()->routeIs('dashboard.agents.*') ? 'text-white' : 'text-slate-500' }}"></i>
-   <span class="text-sm">Agents</span>
-</a>
-@endcan
+                @can('view agents')
+                                    <a href="{{ route('dashboard.agents.index') }}" class="flex items-center p-3 rounded-lg menu-item
+                       {{ request()->routeIs('dashboard.agents.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
+                                        <i
+                                            class="fas fa-users w-5 mr-3 {{ request()->routeIs('dashboard.agents.*') ? 'text-white' : 'text-slate-500' }}"></i>
+                                        <span class="text-sm">Agents</span>
+                                    </a>
+                @endcan
 
-@can('view payments')
-<a href="#"
-   class="flex items-center p-3 rounded-lg menu-item
-   {{ request()->is('dashboard/payments*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
-   <i class="fas fa-file-invoice-dollar w-5 mr-3 {{ request()->is('dashboard/payments*') ? 'text-white' : 'text-slate-500' }}"></i>
-   <span class="text-sm">Payments</span>
-</a>
-@endcan
+                {{-- @can('view payments')
+                                    <a href="#" class="flex items-center p-3 rounded-lg menu-item
+                       {{ request()->is('dashboard/payments*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
+                                        <i
+                                            class="fas fa-file-invoice-dollar w-5 mr-3 {{ request()->is('dashboard/payments*') ? 'text-white' : 'text-slate-500' }}"></i>
+                                        <span class="text-sm">Payments</span>
+                                    </a>
+                @endcan --}}
 
-@can('manage reports')
-<a href="{{ route('dashboard.reports.agents') }}"
-   class="flex items-center p-3 rounded-lg menu-item
-   {{ request()->routeIs('dashboard.reports.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
-   <i class="fas fa-chart-line w-5 mr-3 {{ request()->routeIs('dashboard.reports.*') ? 'text-white' : 'text-slate-500' }}"></i>
-   <span class="text-sm">Reports</span>
-</a>
-@endcan
+                @can('manage reports')
+                                    <a href="{{ route('dashboard.reports.agents') }}" class="flex items-center p-3 rounded-lg menu-item
+                       {{ request()->routeIs('dashboard.reports.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
+                                        <i
+                                            class="fas fa-chart-line w-5 mr-3 {{ request()->routeIs('dashboard.reports.*') ? 'text-white' : 'text-slate-500' }}"></i>
+                                        <span class="text-sm">Reports</span>
+                                    </a>
+                @endcan
 
 
                 @role('agent')
-                    <a href="#" class="flex items-center p-3 text-slate-700 menu-item rounded-lg hover:bg-slate-50">
-                        <i class="fas fa-cog w-5 text-slate-500 mr-3"></i>
-                        <span class="text-sm">Settings</span>
-                    </a>
+                <a href="#" class="flex items-center p-3 text-slate-700 menu-item rounded-lg hover:bg-slate-50">
+                    <i class="fas fa-cog w-5 text-slate-500 mr-3"></i>
+                    <span class="text-sm">Settings</span>
+                </a>
                 @endrole
             </nav>
 
             <div class="absolute bottom-0 w-full p-6 border-t bg-white">
                 <div class="flex items-center">
-                    <div class="w-11 h-11 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white">
-                        <span>{{ strtoupper(substr(auth()->user()->name ?? 'A',0,1)) }}</span>
+                    <div
+                        class="w-11 h-11 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white">
+                        <span>{{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}</span>
                     </div>
                     <div class="ml-3">
                         @if(auth()->check())
@@ -188,7 +189,8 @@
 
                 <form method="POST" action="{{ route('logout') }}" class="mt-2">
                     @csrf
-                    <button type="submit" class="w-full text-sm px-3 py-2 mb-0 rounded-md bg-slate-50 hover:bg-slate-100 text-slate-700 flex items-center justify-center">
+                    <button type="submit"
+                        class="w-full text-sm px-3 py-2 mb-0 rounded-md bg-slate-50 hover:bg-slate-100 text-slate-700 flex items-center justify-center">
                         <i class="fas fa-sign-out-alt mr-2"></i> Log Out
                     </button>
                 </form>
@@ -212,7 +214,8 @@
 
                     <div class="flex items-center space-x-4">
                         <div class="relative hidden md:block">
-                            <input type="text" placeholder="Search properties, agents..." class="border rounded-full py-2 px-4 pl-10 w-72 focus:outline-none focus:ring-1 focus:ring-primary">
+                            <input type="text" placeholder="Search properties, agents..."
+                                class="border rounded-full py-2 px-4 pl-10 w-72 focus:outline-none focus:ring-1 focus:ring-primary">
                             <i class="fas fa-search absolute left-3 top-3 text-muted"></i>
                         </div>
 
@@ -222,8 +225,9 @@
                                 <span class="notification-dot"></span>
                             </button>
 
-                            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-semibold">
-                                {{ strtoupper(substr(auth()->user()->name ?? 'A',0,1)) }}
+                            <div
+                                class="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-semibold">
+                                {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
                             </div>
                         </div>
                     </div>

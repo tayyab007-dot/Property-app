@@ -60,7 +60,7 @@
                         <div class="text-sm text-gray-700">{{ $property->created_at->format('d M Y') }}</div>
                     </div>
 
-                    <a href="#" class="text-sm text-indigo-600 hover:underline">View</a>
+                    <a href="{{ route('dashboard.properties.show', $property->id) }}" class="text-sm text-indigo-600 hover:underline">View</a>
                 </div>
             </div>
         @empty

@@ -127,12 +127,12 @@
             <h2 class="text-lg font-semibold text-slate-800 mb-4">Quick Actions</h2>
             <div class="grid grid-cols-2 gap-4">
                 @can('manage agents')
-                <a href="{ route('dashboard.agents.create') }"
+               <a href="{{ route('dashboard.agents.create') }}"
                     class="flex flex-col items-center justify-center p-4 rounded-xl border hover:shadow-md transition bg-gradient-to-br from-blue-50 to-white">
                     <div class="bg-white p-3 rounded-full mb-2 shadow-sm">
                         <i class="fas fa-user-plus text-blue-600 text-xl"></i>
                     </div>
-                    <span class="text-sm font-medium">Add User</span>
+                    <span class="text-sm font-medium">Add Agent</span>
                 </a>
                 @endcan
 
