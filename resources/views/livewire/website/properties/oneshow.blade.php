@@ -287,7 +287,7 @@
                 </div>
 
                 <!-- Sidebar preserved -->
-                <div class="mt-12 lg:mt-0 lg:col-span-4 space-y-8">
+                {{-- <div class="mt-12 lg:mt-0 lg:col-span-4 space-y-8">
                     <div class="bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-8 sticky top-10">
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Contact Agent</h2>
                         <div class="flex items-center mb-6">
@@ -366,10 +366,25 @@
                             </button>
                         </form>
                     </div>
-                </div>
+                </div> --}}
+
+
+
+
+               {{-- <livewire:order-form :property="$property" /> --}}
+
+
+
+ <livewire:order-form :property="$property" />
+
+
+
             </div>
+            
         </div>
+       
     </div>
+    
 
     <!-- Similar properties block preserved unchanged -->
     <div class="bg-gray-100 dark:bg-gray-900 py-16">
@@ -441,8 +456,11 @@
             </div>
         </div>
     </div>
-
+  
 </div>
+
+
+
 
 @push('styles')
     <style>

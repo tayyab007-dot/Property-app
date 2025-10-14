@@ -123,54 +123,76 @@
             </div>
 
             <nav class="mt-6 px-3 space-y-2">
+                
+                    
+              
                 <a href="{{ route('dashboard') }}" class="flex items-center p-3 rounded-lg menu-item
    {{ request()->routeIs('dashboard') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
                     <i
                         class="fas fa-home w-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-white' : 'text-slate-500' }}"></i>
                     <span class="text-sm">Dashboard</span>
                 </a>
+ 
 
+                @can('manage properties')
                 <a href="{{ route('dashboard.properties.index') }}" class="flex items-center p-3 rounded-lg menu-item
    {{ request()->routeIs('dashboard.properties.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
                     <i
                         class="fas fa-building w-5 mr-3 {{ request()->routeIs('dashboard.properties.*') ? 'text-white' : 'text-slate-500' }}"></i>
                     <span class="text-sm">Properties</span>
                 </a>
+                 @endcan
 
                 @can('view agents')
-                                    <a href="{{ route('dashboard.agents.index') }}" class="flex items-center p-3 rounded-lg menu-item
-                       {{ request()->routeIs('dashboard.agents.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
-                                        <i
-                                            class="fas fa-users w-5 mr-3 {{ request()->routeIs('dashboard.agents.*') ? 'text-white' : 'text-slate-500' }}"></i>
-                                        <span class="text-sm">Agents</span>
-                                    </a>
+                    <a href="{{ route('dashboard.agents.index') }}"
+                        class="flex items-center p-3 rounded-lg menu-item
+                           {{ request()->routeIs('dashboard.agents.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
+                        <i
+                            class="fas fa-users w-5 mr-3 {{ request()->routeIs('dashboard.agents.*') ? 'text-white' : 'text-slate-500' }}"></i>
+                        <span class="text-sm">Agents</span>
+                    </a>
                 @endcan
 
                 {{-- @can('view payments')
-                                    <a href="#" class="flex items-center p-3 rounded-lg menu-item
+                <a href="#"
+                    class="flex items-center p-3 rounded-lg menu-item
                        {{ request()->is('dashboard/payments*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
-                                        <i
-                                            class="fas fa-file-invoice-dollar w-5 mr-3 {{ request()->is('dashboard/payments*') ? 'text-white' : 'text-slate-500' }}"></i>
-                                        <span class="text-sm">Payments</span>
-                                    </a>
+                    <i
+                        class="fas fa-file-invoice-dollar w-5 mr-3 {{ request()->is('dashboard/payments*') ? 'text-white' : 'text-slate-500' }}"></i>
+                    <span class="text-sm">Payments</span>
+                </a>
                 @endcan --}}
 
                 @can('manage reports')
-                                    <a href="{{ route('dashboard.reports.agents') }}" class="flex items-center p-3 rounded-lg menu-item
-                       {{ request()->routeIs('dashboard.reports.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
-                                        <i
-                                            class="fas fa-chart-line w-5 mr-3 {{ request()->routeIs('dashboard.reports.*') ? 'text-white' : 'text-slate-500' }}"></i>
-                                        <span class="text-sm">Reports</span>
-                                    </a>
+                    <a href="{{ route('dashboard.reports.agents') }}"
+                        class="flex items-center p-3 rounded-lg menu-item
+                           {{ request()->routeIs('dashboard.reports.*') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
+                        <i
+                            class="fas fa-chart-line w-5 mr-3 {{ request()->routeIs('dashboard.reports.*') ? 'text-white' : 'text-slate-500' }}"></i>
+                        <span class="text-sm">Reports</span>
+                    </a>
                 @endcan
 
 
-                @role('agent')
-                <a href="#" class="flex items-center p-3 text-slate-700 menu-item rounded-lg hover:bg-slate-50">
+                {{-- @role('agent') --}}
+                {{-- <a href="{{ route('dashboard.orders') }}"
+                    class="flex items-center p-3 text-slate-700 menu-item rounded-lg hover:bg-slate-50">
                     <i class="fas fa-cog w-5 text-slate-500 mr-3"></i>
-                    <span class="text-sm">Settings</span>
-                </a>
-                @endrole
+                    <span class="text-sm">Orders</span>
+                </a> --}}
+                {{-- @endrole --}}
+
+                @can('manage orders')
+                                <a href="{{ route('dashboard.orders') }}" class="flex items-center p-3 rounded-lg menu-item
+                    {{ request()->routeIs('dashboard.orders') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
+
+                                    <i class="fas fa-shopping-cart w-5 mr-3 
+                        {{ request()->routeIs('dashboard.orders') ? 'text-white' : 'text-slate-500' }}">
+                                    </i>
+
+                                    <span class="text-sm">Orders</span>
+                                </a>
+                @endcan
             </nav>
 
             <div class="absolute bottom-0 w-full p-6 border-t bg-white">

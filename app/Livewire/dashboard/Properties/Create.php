@@ -253,6 +253,150 @@
 
 
 
+// namespace App\Livewire\Dashboard\Properties;
+
+// use Livewire\Component;
+// use Livewire\Attributes\Layout;
+// use Livewire\WithFileUploads;
+// use Illuminate\Support\Facades\Auth;
+// use App\Models\Property;
+// use App\Models\PropertyImage;
+// use App\Models\Agent;
+
+// #[Layout('livewire.dashboard.layouts.app')]
+// class Create extends Component
+// {
+//     use WithFileUploads;
+
+//     public $title = '';
+//     public $description = '';
+//     public $price = '';
+//     public $type = 'sale';
+//     public $property_type = 'house';
+//     public $bedrooms = null;
+//     public $bathrooms = null;
+//     public $status = 'draft';
+//     // public $status = 'draft';
+//     public $area = null;
+//     public $address = '';
+//     public $latitude = null;
+//     public $longitude = null;
+//     public $images = [];
+//     public $amenities = [];
+
+//     public function save()
+//     {
+//         $this->validate([
+//             'title' => 'required|string|max:255',
+//             'description' => 'required|string',
+//             'price' => 'required|numeric|min:0',
+//             'type' => 'required|in:sale,rent',
+//             'property_type' => 'required|in:house,plot,apartment,shop',
+//             'bedrooms' => 'nullable|integer|min:0',
+//             'bathrooms' => 'nullable|integer|min:0',
+//             'status' => 'required|in:draft,published',
+//             'area' => 'nullable|numeric|min:0',
+//             'address' => 'required|string|max:255',
+            
+//             'latitude' => 'nullable|numeric',
+//             'longitude' => 'nullable|numeric',
+
+//             'images.*' => 'image|max:2048',
+//             'images' => 'max:5',
+//             'amenities' => 'array'
+//         ]);
+
+//         if (!Auth::check()) {
+//             session()->flash('error', 'You must be logged in.');
+//             return redirect()->route('login');
+//         }
+
+//         try {
+//             // Find the agent profile associated with the authenticated user
+//             $agentProfile = Agent::where('user_id', Auth::id())->first();
+
+//             // Check if an agent profile exists - PROPERLY handle the return
+//             if (!$agentProfile) {
+//                 session()->flash('error', 'You must have an agent profile to create a property.');
+//                 return null; // Properly return null to stop execution
+//             }
+
+//             // Create the Property with the agent_id
+//             $property = Property::create([
+//                 'user_id' => Auth::id(),
+//                 'agent_id' => $agentProfile->id, // This is crucial
+//                 'title' => $this->title,
+//                 'description' => $this->description,
+//                 'price' => $this->price,
+//                 'type' => $this->type,
+//                 'property_type' => $this->property_type,
+//                 'bedrooms' => $this->bedrooms,
+//                 'bathrooms' => $this->bathrooms,
+//                 'status' => $this->status,
+//                 'area' => $this->area,
+//                 'address' => $this->address,
+//                 'latitude' => $this->latitude,
+//                 'longitude' => $this->longitude,
+//                 'amenities' => $this->amenities,
+//                 // 'status' => $this->status, // Add this line
+//                 'published_at' => $this->status === 'published' ? now() : null,
+//             ]);
+
+//             // Check if images were uploaded and process them
+//             if ($this->images) {
+//                 foreach ($this->images as $image) {
+//                     $path = $image->store('properties', 'public');
+//                     PropertyImage::create([
+//                         'property_id' => $property->id,
+//                         'path' => $path,
+//                     ]);
+//                 }
+//             }
+
+//             session()->flash('success', 'Property created successfully!');
+//             return redirect()->route('dashboard.properties.index');
+            
+//         } catch (\Exception $e) {
+//             session()->flash('error', 'Error: ' . $e->getMessage());
+//         }
+//     }
+
+//     public function render()
+//     {
+//         return view('livewire.dashboard.properties.create');
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 namespace App\Livewire\Dashboard\Properties;
 
 use Livewire\Component;
@@ -293,6 +437,7 @@ class Create extends Component
             'property_type' => 'required|in:house,plot,apartment,shop',
             'bedrooms' => 'nullable|integer|min:0',
             'bathrooms' => 'nullable|integer|min:0',
+            'status' => 'required|in:draft,published',
             'area' => 'nullable|numeric|min:0',
             'address' => 'required|string|max:255',
             'latitude' => 'nullable|numeric',
@@ -308,19 +453,27 @@ class Create extends Component
         }
 
         try {
-            // Find the agent profile associated with the authenticated user
-            $agentProfile = Agent::where('user_id', Auth::id())->first();
+            $user = Auth::user();
+            
+            // Find or create agent profile
+            $agentProfile = Agent::where('user_id', $user->id)->first();
 
-            // Check if an agent profile exists - PROPERLY handle the return
             if (!$agentProfile) {
-                session()->flash('error', 'You must have an agent profile to create a property.');
-                return null; // Properly return null to stop execution
+                // Auto-create agent profile for users without one
+                $agentProfile = Agent::create([
+                    'user_id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'phone' => null,
+                    'is_active' => true,
+                    // Add any other required fields for your agents table
+                ]);
             }
 
             // Create the Property with the agent_id
             $property = Property::create([
-                'user_id' => Auth::id(),
-                'agent_id' => $agentProfile->id, // This is crucial
+                'user_id' => $user->id,
+                'agent_id' => $agentProfile->id, // This will always have a value now
                 'title' => $this->title,
                 'description' => $this->description,
                 'price' => $this->price,
@@ -328,12 +481,12 @@ class Create extends Component
                 'property_type' => $this->property_type,
                 'bedrooms' => $this->bedrooms,
                 'bathrooms' => $this->bathrooms,
+                'status' => $this->status,
                 'area' => $this->area,
                 'address' => $this->address,
                 'latitude' => $this->latitude,
                 'longitude' => $this->longitude,
                 'amenities' => $this->amenities,
-                'status' => $this->status, // Add this line
                 'published_at' => $this->status === 'published' ? now() : null,
             ]);
 

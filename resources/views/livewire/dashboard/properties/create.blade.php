@@ -139,6 +139,17 @@
                         </div>
                     </div>
                 </div>
+
+                <div>
+    <label class="block text-sm font-semibold text-gray-700">Status</label>
+    <select wire:model="status" class="w-full border rounded p-2 mt-1">
+        <option value="draft">Draft</option>
+        <option value="published">Published</option>
+    </select>
+    @error('status') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+</div>
+
+
                 <div class="relative">
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Area (sq ft)</label>
                     <div class="relative">

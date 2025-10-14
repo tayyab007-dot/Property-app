@@ -26,6 +26,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'update properties',
             'delete properties',
             'view properties',
+            'manage properties',
+            
 
             'manage agents',
             'view agents',
@@ -33,6 +35,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'view payments',
 
             'manage reports',
+
+            'manage orders',
 
             'manage users',
             'view dashboard',
@@ -49,7 +53,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         //Assign permissions to roles
         $adminRole->givePermissionTo(Permission::all());
-        $agentRole->givePermissionTo(['create properties', 'update properties', 'delete properties', 'view properties']);
+        $agentRole->givePermissionTo(['create properties', 'update properties', 'delete properties', 'view properties', 'manage properties']);
         $customerRole->givePermissionTo(['view properties']);
 
 

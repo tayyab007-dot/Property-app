@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Dashboard\Orders;
+use App\Livewire\OrderForm;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -16,6 +18,17 @@ use App\Livewire\Properties\Index;
 use App\Livewire\Properties\Create;
 use App\Livewire\Properties\Show;
 use Livewire\Livewire;
+// use Illuminate\Support\Facades\Route;
+// use App\Livewire\Website\Properties;
+// use App\Livewire\Dashboard\Orders;
+
+// ✅ Property details page (with inquiry form)
+// Route::get('/properties/{id}', Properties::class)->name('website.properties.show');
+
+// ✅ Admin Dashboard Orders page (to view submitted messages)
+// Route::middleware(['auth', 'can:manage-dashboard'])->group(function () {
+    Route::get('/dashboard/orders', App\Livewire\Dashboard\Orders\Index::class)->name('dashboard.orders');
+// });
 
 
 Route::middleware(['auth'])->group(function(){
@@ -43,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-
+// Route::get('/contact', \App\Livewire\website\OrderForm::class)->name('contact.form');
 // Route::middleware(['auth'])->group(function () {
 //     Route::get('/reports/agents', [ReportController::class, 'index'])->name('reports.agents.index');
 //     Route::get('/reports/agents/{agent}', [ReportController::class, 'show'])->name('reports.agents.show');

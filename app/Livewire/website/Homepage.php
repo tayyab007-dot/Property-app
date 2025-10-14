@@ -40,10 +40,11 @@ class Homepage extends Component
 {
     public $featuredProperties;
     public function mount(){
-        $this->featuredProperties = Property::where('status', 'draft')
+        $this->featuredProperties = Property::where('status', 'published')
         ->latest()
         ->take(6)
         ->get();
+        
     }
     public function render()
     {

@@ -134,10 +134,14 @@
         </div>
 
         <!-- Add Property -->
+        {{-- @can('create properties') --}}
+            
+        
         <a href="{{ route('dashboard.properties.create') }}"
            class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-md text-sm shadow hover:bg-blue-700 transition">
             <i class="fas fa-plus mr-1"></i> Add Property
         </a>
+        {{-- @endcan --}}
     </div>
 
     <!-- Table -->
