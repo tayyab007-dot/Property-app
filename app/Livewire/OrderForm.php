@@ -63,6 +63,7 @@ class OrderForm extends Component
     public $name;
     public $email;
     public $phone;
+    public $whatsapp_number; // 👈 new field
     public $message;
     public $property = null; // 👈 optional
 
@@ -76,6 +77,7 @@ class OrderForm extends Component
         $this->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
+            'whatsapp_number' => 'required|string|max:20', // 👈 validation for new field
             'message' => 'required|string',
         ]);
 
@@ -84,12 +86,13 @@ class OrderForm extends Component
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'whatsapp_number' => $this->whatsapp_number, // 👈 save new field
             'message' => $this->message,
             'property_id' => $this->property->id ?? null, // only if available
         ]);
 
         session()->flash('success', 'Your message has been sent successfully!');
-        $this->reset(['name', 'email', 'phone', 'message']);
+        $this->reset(['name', 'email', 'phone','whatsapp_number', 'message']);
     }
 
     public function render()

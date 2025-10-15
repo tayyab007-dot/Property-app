@@ -69,7 +69,7 @@
         <div class="bg-white dark:bg-gray-900 py-12">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Filters -->
-                <div class="mb-8 bg-white dark:bg-gray-800 rounded-lg shadow p-4" data-aos="fade-up"
+                {{-- <div class="mb-8 bg-white dark:bg-gray-800 rounded-lg shadow p-4" data-aos="fade-up"
                     data-aos-delay="100">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
                         <div class="flex-1">
@@ -98,6 +98,18 @@
                     <!-- Advanced Filters -->
                     <div x-show="showFilters" class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- 🆕 Property Listing Type Filter -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Listing
+                                    Type</label>
+                                <select wire:model.live="type"
+                                    class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:bg-gray-700 dark:text-white">
+                                    <option value="">All</option>
+                                    <option value="sale">For Sale</option>
+                                    <option value="rent">For Rent</option>
+                                </select>
+                            </div>
+
                             <!-- Property Type -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Property
@@ -141,7 +153,112 @@
                             </div>
                         </div>
                     </div>
+                </div> --}}
+
+                <!-- 🔍 Filter Section -->
+<div x-data="{ showFilters: false }" class="mb-8 bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 p-6" data-aos="fade-up" data-aos-delay="100">
+    
+    <!-- Top Row: Search, Sort & Filter Button -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div class="flex items-center gap-3 w-full md:w-2/3">
+            <div class="relative flex-grow">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" wire:model.live.debounce.300ms="search"
+                    placeholder="Search by city, title, or address..."
+                    class="pl-10 w-full py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <select wire:model.live="sortBy"
+                class="block bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 py-2 px-3 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                <option value="newest">Newest First</option>
+                <option value="price_asc">Price: Low to High</option>
+                <option value="price_desc">Price: High to Low</option>
+                <option value="featured">Featured</option>
+            </select>
+
+            <button @click="showFilters = !showFilters"
+                class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition duration-200">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Filters</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Collapsible Advanced Filters -->
+    <div x-show="showFilters" x-transition.duration.300ms class="pt-4 border-t border-gray-200 dark:border-gray-700">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+            <!-- Listing Type -->
+            <div class="flex flex-col">
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                    <i class="fa-solid fa-tags mr-1 text-indigo-500"></i> Listing Type
+                </label>
+                <select wire:model.live="type"
+                    class="py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <option value="">All</option>
+                    <option value="sale">For Sale</option>
+                    <option value="rent">For Rent</option>
+                </select>
+            </div>
+
+            <!-- Property Type -->
+            <div class="flex flex-col">
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                    <i class="fa-solid fa-building mr-1 text-indigo-500"></i> Property Type
+                </label>
+                <select wire:model.live="propertyType"
+                    class="py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <option value="">All Types</option>
+                    <option value="house">House</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="villa">Villa</option>
+                    <option value="commercial">Commercial</option>
+                    <option value="land">Land</option>
+                </select>
+            </div>
+
+            <!-- Price Range -->
+            <div class="flex flex-col">
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                    <i class="fa-solid fa-dollar-sign mr-1 text-indigo-500"></i> Price Range
+                </label>
+                <div class="flex gap-2">
+                    <input type="number" wire:model.live="minPrice" placeholder="Min"
+                        class="w-1/2 py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <input type="number" wire:model.live="maxPrice" placeholder="Max"
+                        class="w-1/2 py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                 </div>
+            </div>
+
+            <!-- Bedrooms -->
+            <div class="flex flex-col">
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                    <i class="fa-solid fa-bed mr-1 text-indigo-500"></i> Bedrooms
+                </label>
+                <select wire:model.live="bedrooms"
+                    class="py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <option value="">Any</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Reset Button -->
+        <div class="flex justify-end mt-6">
+            <button wire:click="$reset"
+                class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition">
+                <i class="fa-solid fa-rotate-left text-indigo-500"></i> Reset Filters
+            </button>
+        </div>
+    </div>
+</div>
+
 
                 <!-- Property Grid -->
                 <div class="row">
@@ -167,8 +284,12 @@
                                                 class="img-fluid">
                                         @endif
                                     </a>
+
                                     <div class="property-status">{{ $property->status }}</div>
+                                    <div class="property-status mr-78">{{ $property->type }}</div>
                                 </div>
+
+
                                 <div class="property-content-new">
                                     <h3 class="property-title"><a
                                             href="{{ route('properties.show', $property) }}">{{ $property->title }}</a></h3>

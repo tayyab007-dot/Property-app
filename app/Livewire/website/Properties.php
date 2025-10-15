@@ -1,26 +1,8 @@
 <?php
 
-// namespace App\Livewire;
-
-// use Livewire\Component;
-
-// class Properties extends Component
-// {
-//     public function render()
-//     {
-//         return view('livewire.properties') // ← Make sure it's 'livewire.properties'
-//             ->layout('components.layouts.property', [
-//                 'title' => 'Properties - Our Listings'
-//             ]);
-//     }
-// }
-
-
-
-
-
 namespace App\Livewire\website;
 
+use Illuminate\Support\Facades\Schema;
 use Livewire\Component;
 use App\Models\Property;
 use Livewire\Attributes\Layout;
@@ -34,6 +16,7 @@ class Properties extends Component
     use WithPagination;
 
     public $search = '';
+    public $type = ''; // <-- ADD THIS LINE
     public $propertyType = '';
     public $minPrice = null;
     public $maxPrice = null;
@@ -46,11 +29,21 @@ class Properties extends Component
 
         // Search
         if ($this->search) {
-            $query->where(function ($q) {
-                $q->where('title', 'like', '%' . $this->search . '%')
-                  ->orWhere('address', 'like', '%' . $this->search . '%')
-                  ->orWhere('city', 'like', '%' . $this->search . '%');
-            });
+    $query->where(function ($q) {
+        $q->where('title', 'like', '%' . $this->search . '%')
+          ->orWhere('address', 'like', '%' . $this->search . '%');
+
+        // Only add city if the column exists
+        if (Schema::hasColumn('properties', 'city')) {
+            $q->orWhere('city', 'like', '%' . $this->search . '%');
+        }
+    });
+}
+
+
+         // 🆕 Type Filter (Rent or Sale)
+        if ($this->type) {
+            $query->where('type', $this->type);
         }
 
         // Property Type Filter
@@ -95,32 +88,7 @@ class Properties extends Component
     }
 }
 
-// namespace App\Livewire\website;
 
-// use Livewire\Component;
-// use Livewire\Attributes\Layout;
-// use Livewire\Attributes\Title;
-// use App\Models\Property;
-
-
-
-// #[Layout('components.layouts.property')]
-// #[Title('Properties - Browse Listings')]
-// class OneProperty extends Component
-// {
-    
-//     public Property $property;
-
-//     public function mount(Property $property)
-//     {
-//         $this->property = $property;
-//     }
-
-//     public function render()
-//     {
-//         return view('livewire.website.properties.oneshow');
-//     }
-// }
 
 
 
@@ -182,44 +150,3 @@ class OneProperty extends Component
 
 
 
-// namespace App\Livewire;
-
-// use Livewire\Component;
-// use App\Models\Order;
-// use Illuminate\Support\Facades\Auth;
-
-// class OrderForm extends Component
-// {
-//     public $name;
-//     public $email;
-//     public $phone;
-//     public $message;
-
-//     public function submit()
-//     {
-//         $this->validate([
-//             'name' => 'required|string|max:255',
-//             'email' => 'required|email',
-//             'message' => 'required|string',
-//         ]);
-
-//         Order::create([
-//             'user_id' => Auth::id(),
-//             'name' => $this->name,
-//             'email' => $this->email,
-//             'phone' => $this->phone,
-//             'message' => $this->message,
-//         ]);
-
-//         session()->flash('success', 'Your message has been sent successfully!');
-//         $this->reset(['name', 'email', 'phone', 'message']);
-//     }
-
-//     public function render()
-//     {
-//         // return view('livewire.order-form');
-//          return view('livewire.website.properties.oneshow', [
-//             'property' => $this->property,
-            
-//         ]);
-//     }

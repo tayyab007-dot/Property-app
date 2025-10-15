@@ -15,6 +15,7 @@ class Order extends Model
         'name',
         'email',
         'phone',
+        'whatsapp_number', // 👈 new field
         'message',
     ];
 

@@ -193,6 +193,18 @@
                                     <span class="text-sm">Orders</span>
                                 </a>
                 @endcan
+
+                @can('manage orders')
+                                <a href="#" class="flex items-center p-3 rounded-lg menu-item
+                    {{ request()->routeIs('dashboard.queries') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
+
+                                    <i class="fas fa-shopping-cart w-5 mr-3 
+                        {{ request()->routeIs('dashboard.queries') ? 'text-white' : 'text-slate-500' }}">
+                                    </i>
+
+                                    <span class="text-sm">Queries</span>
+                                </a>
+                @endcan
             </nav>
 
             <div class="absolute bottom-0 w-full p-6 border-t bg-white">

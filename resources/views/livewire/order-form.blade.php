@@ -76,6 +76,12 @@
         </div>
 
         <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">WhatsApp Number</label>
+            <input type="text" wire:model="whatsapp_number" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+            @error('whatsapp_number') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+        </div>
+
+        <div>
             <label class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
             <textarea wire:model="message" rows="4" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
             @error('message') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror

@@ -201,6 +201,8 @@
                                     @endif
                                 </a>
                                 <div class="property-status">{{ $property->status }}</div>
+                                <div class="property-status mr-65">{{ $property->type }}</div>
+
                             </div>
                             <div class="property-content-new">
                                 <h3 class="property-title"><a href="{{ route('properties.show', $property) }}">{{ $property->title }}</a></h3>
