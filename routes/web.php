@@ -25,6 +25,10 @@ use Livewire\Livewire;
 // ✅ Property details page (with inquiry form)
 // Route::get('/properties/{id}', Properties::class)->name('website.properties.show');
 
+Route::get('/dashboard/queries', App\Livewire\dashboard\queries\Index::class)
+    ->middleware(['auth'])
+    ->name('dashboard.queries');
+
 // ✅ Admin Dashboard Orders page (to view submitted messages)
 // Route::middleware(['auth', 'can:manage-dashboard'])->group(function () {
     Route::get('/dashboard/orders', App\Livewire\Dashboard\Orders\Index::class)->name('dashboard.orders');

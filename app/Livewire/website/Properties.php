@@ -21,7 +21,22 @@ class Properties extends Component
     public $minPrice = null;
     public $maxPrice = null;
     public $bedrooms = '';
+    // public $reset = '';
     public $sortBy = 'newest';
+
+    public function resetFilters()
+{
+    $this->reset([
+        'search',
+        'type',
+        'propertyType',
+        'minPrice',
+        'maxPrice',
+        'bedrooms',
+        'sortBy',
+    ]);
+}
+
 
     public function render()
     {
@@ -79,6 +94,8 @@ class Properties extends Component
                 $query->latest(); // 'newest' first
                 break;
         }
+
+        
 
         $properties = $query->paginate(12);
 

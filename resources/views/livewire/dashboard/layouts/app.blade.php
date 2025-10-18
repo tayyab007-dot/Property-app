@@ -195,10 +195,10 @@
                 @endcan
 
                 @can('manage orders')
-                                <a href="#" class="flex items-center p-3 rounded-lg menu-item
+                                <a href="{{ route('dashboard.queries') }}" class="flex items-center p-3 rounded-lg menu-item
                     {{ request()->routeIs('dashboard.queries') ? 'active-menu text-white' : 'text-slate-700 hover:bg-slate-50' }}">
 
-                                    <i class="fas fa-shopping-cart w-5 mr-3 
+                                    <i class="fas fa-comment-alt w-5 mr-3 
                         {{ request()->routeIs('dashboard.queries') ? 'text-white' : 'text-slate-500' }}">
                                     </i>
 

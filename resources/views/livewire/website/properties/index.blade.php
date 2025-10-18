@@ -251,7 +251,7 @@
 
         <!-- Reset Button -->
         <div class="flex justify-end mt-6">
-            <button wire:click="$reset"
+            <button wire:click="resetFilters"
                 class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition">
                 <i class="fa-solid fa-rotate-left text-indigo-500"></i> Reset Filters
             </button>
